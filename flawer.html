@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <style>
+  .flower {
+    position: fixed;
+    top: -50px;
+    font-size: 30px;
+    animation: fall 5s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+</style>
+
+<script>
+  function createFlower() {
+    const flower = document.createElement("div");
+    flower.classList.add("flower");
+
+    // You can change emojis: 🌸 🌺 🌼 🌻 🌷
+    flower.innerText = "🌹";
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+      flower.remove();
+    }, 5000);
+  }
+
+  setInterval(createFlower, 300);
+</script>
+
+        <h1>
+            My first Web Page
+        </h1>
+        <p>
+            My first Paragraph
+        </p>
+        <p id="demo">khuyydt</p>
+        <script>
+          document.getElementById("demo").innerHTML=5+6;
+
+        </script>
+        
+        <script>
+            document.write(5+6);
+        </script>
+        <p id="thiss">(a+b)^2</p>
+        <button type="button" onclick="document.getElementById('thiss').innerHTML='a^2+b^2+2ab'">ANSWER</button>
+    </body>
+</html>
