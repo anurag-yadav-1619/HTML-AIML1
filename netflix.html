@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netflix Clone</title>
+
+  <!-- CSS -->
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    body{
+      background:#000;
+      color:#fff;
+    }
+
+    /* NAVBAR */
+    header{
+      height:100vh;
+      background:linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+      url('https://assets.nflxext.com/ffe/siteui/vlv3/5d7bcb40-6b3c-4a94-bc6b-01c51d1d8d8a/9b0b7e15-33db-4c0a-9fd2-7f8e0b8e5b3f/IN-en-20240401-popsignuptwoweeks-perspective_alpha_website_large.jpg');
+      background-size:cover;
+      background-position:center;
+    }
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:25px 60px;
+    }
+
+    nav img{
+      width:150px;
+    }
+
+    nav button{
+      background:#e50914;
+      border:none;
+      padding:8px 18px;
+      color:#fff;
+      font-size:14px;
+      border-radius:4px;
+      cursor:pointer;
+    }
+
+    /* HERO */
+    .hero{
+      text-align:center;
+      margin-top:180px;
+      padding:0 20px;
+    }
+
+    .hero h1{
+      font-size:3rem;
+      max-width:800px;
+      margin:auto;
+    }
+
+    .hero h3{
+      margin:20px 0;
+      font-weight:normal;
+    }
+
+    .hero p{
+      font-size:18px;
+      margin-bottom:20px;
+    }
+
+    .email-box{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .email-box input{
+      padding:15px;
+      width:280px;
+      border:none;
+      outline:none;
+    }
+
+    .email-box button{
+      padding:15px 25px;
+      background:#e50914;
+      border:none;
+      color:#fff;
+      font-size:18px;
+      cursor:pointer;
+    }
+
+    /* MOVIE ROW */
+    .movies{
+      padding:40px 60px;
+    }
+
+    .movies h2{
+      margin-bottom:15px;
+    }
+
+    .movie-row{
+      display:flex;
+      gap:15px;
+      overflow-x:auto;
+    }
+
+    .movie-row::-webkit-scrollbar{
+      display:none;
+    }
+
+    .movie{
+      min-width:200px;
+      cursor:pointer;
+      transition:transform 0.3s;
+    }
+
+    .movie img{
+      width:100%;
+      border-radius:5px;
+    }
+
+    .movie:hover{
+      transform:scale(1.1);
+    }
+
+    /* MODAL */
+    .modal{
+      display:none;
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background:rgba(0,0,0,0.8);
+      justify-content:center;
+      align-items:center;
+    }
+
+    .modal-content{
+      background:#111;
+      padding:30px;
+      border-radius:8px;
+      max-width:400px;
+      text-align:center;
+    }
+
+    .modal-content h3{
+      margin-bottom:10px;
+    }
+
+    .close-btn{
+      margin-top:15px;
+      padding:8px 15px;
+      background:#e50914;
+      border:none;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:768px){
+      nav{padding:20px;}
+      .hero h1{font-size:2rem;}
+      .movies{padding:20px;}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg">
+    <button onclick="signIn()">Sign In</button>
+  </nav>
+
+  <div class="hero">
+    <h1>Unlimited movies, TV shows and more</h1>
+    <h3>Watch anywhere. Cancel anytime.</h3>
+    <p>Ready to watch? Enter your email.</p>
+
+    <div class="email-box">
+      <input type="email" id="email" placeholder="Email address">
+      <button onclick="getStarted()">Get Started ></button>
+    </div>
+  </div>
+</header>
+
+<section class="movies">
+  <h2>Popular on Netflix</h2>
+  <div class="movie-row">
+    <div class="movie" onclick="showMovie('Stranger Things')">
+      <img src="https://image.tmdb.org/t/p/w300/x2LSRK2Cm7MZhjluni1msVJ3wDF.jpg">
+    </div>
+    <div class="movie" onclick="showMovie('Money Heist')">
+      <img src="https://image.tmdb.org/t/p/w300/reEMJA1uzscCbkpeRJeTT2bjqUp.jpg">
+    </div>
+    <div class="movie" onclick="showMovie('Dark')">
+      <img src="https://image.tmdb.org/t/p/w300/apbrbWs8M9lyOpJYU5WXrpFbk1Z.jpg">
+    </div>
+    <div class="movie" onclick="showMovie('Lucifer')">
+      <img src="https://image.tmdb.org/t/p/w300/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg">
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h3 id="movieTitle"></h3>
+    <p>This is a demo Netflix clone UI.</p>
+    <button class="close-btn" onclick="closeModal()">Close</button>
+  </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+  function getStarted(){
+    const email = document.getElementById('email').value;
+    if(email === ''){
+      alert('Please enter your email');
+    } else {
+      alert('Welcome to Netflix, ' + email);
+    }
+  }
+
+  function signIn(){
+    alert('Sign In feature coming soon');
+  }
+
+  function showMovie(name){
+    document.getElementById('movieTitle').innerText = name;
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function closeModal(){
+    document.getElementById('modal').style.display = 'none';
+  }
+</script>
+
+</body>
+</html>
