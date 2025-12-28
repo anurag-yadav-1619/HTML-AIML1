@@ -1,0 +1,24 @@
+h1{
+    color: aliceblue;
+}
+
+
+div{
+    border: solid black 2px;
+    margin: 50px;
+    padding: 34px;
+    background-color: aqua;
+     background: url("land-o-lakes-inc-vBUGdI7JAvc-unsplash.jpg");
+    background-size: cover;
+    background-size: contain;
+
+}
+
+#box1{
+    position:fixed;
+    top: 0px;
+    
+  
+
+
+}

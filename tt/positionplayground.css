@@ -1,0 +1,17 @@
+div{
+    border: solid black 2px;
+    margin: 50px;
+    padding: 50px;
+    
+}
+#box1{
+    background-color: aquamarine;
+
+}
+#box2{background-color: rgb(93, 186, 137);}
+#box3{
+    background-color: rgb(63, 192, 192);
+}
+#box4{
+    background-color: aqua;
+}
